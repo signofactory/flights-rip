@@ -36,6 +36,8 @@ This codebase offers valuable insights to React developers of all skill levels w
 
 - Simple local state management through [Recoil](https://github.com/facebookexperimental/Recoil), without redux, mobx or similar
 
+- Some images are form the amazing and trustworthy [Unsplash](https://www.unsplash.com)
+
 - Written entirely in JavaScript (no TypeScript)
 
   
@@ -49,18 +51,18 @@ This codebase offers valuable insights to React developers of all skill levels w
 - Rename the .env.sample files in the `/frontend` and `/backend` directories in .env
 - Customize the empty variables in the environment file:
 	- You can get GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET variables by [following the instructions on Google website](https://developers.google.com/identity/sign-in/web/sign-in#create_authorization_credentials)
-	- You can get a NEXT_PUBLIC_FLIGHTSCANNER_API variable by signing up here
+	- You can get a NEXT_PUBLIC_FLIGHTSCANNER_API variable by signing up on [RapidAPI](https://rapidapi.com/)
 
 ## Running the server locally 🏃🏽‍♀️
 You can run both the frontend and the backend server from the root directory.
 First, install the dependencies:
 ```bash
 
-npm run dev
+npm install
 
 # or
 
-yarn dev
+yarn install
 
 ```
 Then, run both servers using:  
