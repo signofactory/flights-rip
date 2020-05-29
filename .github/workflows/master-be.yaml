@@ -1,0 +1,38 @@
+name: Deploy master backend
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    types: [closed]
+    branches:
+    - master
+
+jobs:
+
+  # Deploys stuff on server
+  deploytoserver:
+
+    runs-on: ubuntu-latest
+    name: Deploy to Server and Run Commands
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Deploying code on server
+      uses: easingthemes/ssh-deploy@v2.1.2
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SOURCE: "backend/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }} 
+    - name: Running post deploy commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script: |
+          cd ${{ secrets.REMOTE_TARGET }}
+          sh commands/deploy_master.sh

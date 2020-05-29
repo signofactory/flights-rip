@@ -1,0 +1,15 @@
+{
+  "name": "flights-rip",
+  "version": "1.0.0",
+  "description": "Skyscanner clone build with MongoDB, Express, Next.js, React",
+  "main": "index.js",
+  "repository": "https://github.com/signofactory/flights-rip",
+  "author": "Signofactory",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd backend && yarn install && yarn dev\" \"cd frontend && yarn install && yarn dev\""
+  }
+}

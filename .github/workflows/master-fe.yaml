@@ -1,0 +1,55 @@
+name: Deploy master frontend
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    types: [closed]
+    branches:
+    - master
+
+jobs:
+  # Deploys stuff on server
+  buildanddeploy:
+    runs-on: ubuntu-latest
+    name: FE - Build and deploy to Server
+    strategy:
+      matrix:
+        node-version: [10.x]
+    env:
+      working-directory: ./frontend
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install Packages
+      run: yarn install
+      working-directory: ${{env.working-directory}}
+    - name: Build project
+      run: yarn build
+      working-directory: ${{env.working-directory}}
+      env:
+        NEXT_PUBLIC_API_PATH: ${{ secrets.API_FE_URL }}
+        NEXT_PUBLIC_FLIGHTSCANNER_API: ${{ secrets.API_SKYSCANNER_KEY }}
+    - uses: easingthemes/ssh-deploy@v2.1.2
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SOURCE: "frontend/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET_FE }}
+    # Runs command to execute server
+    - uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script: |
+          cd ${{ secrets.REMOTE_TARGET_FE }}
+          sh commands/deploy_master.sh
+
+    

@@ -1,0 +1,21 @@
+{
+  "name": "flights-rip",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 3001"
+  },
+  "dependencies": {
+    "antd": "^4.2.3",
+    "axios": "^0.19.2",
+    "moment": "^2.25.3",
+    "next": "9.4.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "recoil": "^0.0.7",
+    "styled-components": "^5.1.0"
+  }
+}
