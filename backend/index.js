@@ -1,6 +1,5 @@
 //Requires dependencies
 const express = require('express')
-const cors = require('cors')
 const dotenv = require('dotenv');
 const bodyParser = require("body-parser"); //Required to pass responses through auth middleware
 const mongoose = require('mongoose')
@@ -12,14 +11,6 @@ dotenv.config();
 
 //Declares server
 const server = express()
-
-// //Allows for cors
-// var corsOptions = {
-//   origin: process.env.ALLOWED_ORIGIN,
-//   optionsSuccessStatus: 200,
-//   credentials: true
-// }
-// server.use(cors(corsOptions))
 
 server.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
